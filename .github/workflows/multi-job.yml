@@ -1,0 +1,33 @@
+name: Multiple jobs in sequence
+
+on: push
+
+jobs:
+  build_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Cowsay program
+      run: sudo apt-get install cowsay -y
+
+    - name: Execute Cowsay CLI
+      run: cowsay -y dragon "Run for cover, I am a dragon... RAWR" >> dragon.txt
+
+    - name: Sleep for 30 seconds
+      run: sleep 30
+
+  test_job_2:
+    needs: build_job_1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Sleep for 10 seconds
+      run: sleep 10
+
+    - name: Check test file exists
+      run: grep -i "dragon" dragon.txt
+
+  deploy_job_3:
+    needs: test_job_2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Read file
+      run: cat dragon.txt
