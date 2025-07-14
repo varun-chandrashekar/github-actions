@@ -12,7 +12,7 @@ jobs:
   docker:
     concurrency:
       group: dev-development
-      cancel-in-progress: true
+      cancel-in-progress: false
     runs-on: ubuntu-latest
 
     steps:
