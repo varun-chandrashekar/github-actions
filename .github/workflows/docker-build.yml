@@ -13,6 +13,7 @@ jobs:
     concurrency:
       group: dev-development
       cancel-in-progress: false
+    timeout-minutes: 2
     runs-on: ubuntu-latest
 
     steps:
